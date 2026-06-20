@@ -1,3 +1,10 @@
+import { CreatePost } from "../components/CreatePost";
+
 export const CreatePostPage = () => {
-    return <div></div>;
+    return (
+        <div>
+            <h2>Create New Post</h2>
+            <CreatePost />
+        </div>
+    );
 };
