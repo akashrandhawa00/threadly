@@ -103,7 +103,7 @@ export const CommentItem = ({ comment, postId }: Props) => {
                         placeholder="Write a comment..."
                         value={replyText}
                         onChange={(event) => setReplyText(event.target.value)}
-                        className="w-full border border-white/10 bg-transparent p-2 rounded resize-none"
+                        className="w-full border border-white/10 bg-black p-2 rounded resize-none"
                     />
                     <button
                         type="submit"
@@ -140,7 +140,7 @@ export const CommentItem = ({ comment, postId }: Props) => {
                         )}
                     </button>
                     {!isCollapsed && (
-                        <div>
+                        <div className="space-y-2">
                             {comment.children.map((child, key) => (
                                 <CommentItem
                                     key={key}

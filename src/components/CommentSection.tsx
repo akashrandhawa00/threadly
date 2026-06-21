@@ -144,7 +144,7 @@ export const CommentSection = ({ postId }: Props) => {
                         onChange={(event) =>
                             setNewCommentText(event.target.value)
                         }
-                        className="w-full border border-white/20 bg-transparent p-2 rounded resize-none"
+                        className="w-full border border-white/20 bg-black p-2 rounded resize-none"
                     />
                     <button
                         type="submit"

@@ -89,7 +89,7 @@ export const CreatePost = () => {
                     id="title"
                     required
                     onChange={(event) => setTitle(event.target.value)}
-                    className="w-full border border-white/10 bg-transparent p-2 rounded"
+                    className="w-full border border-white/10 bg-black  p-2 rounded"
                 />
             </div>
             <div>
@@ -101,14 +101,14 @@ export const CreatePost = () => {
                     required
                     rows={6}
                     onChange={(event) => setContent(event.target.value)}
-                    className="w-full border border-white/10 bg-transparent p-2 rounded resize-none"
+                    className="w-full border border-white/10 bg-black  p-2 rounded resize-none"
                 />
             </div>
             <div>
                 <label className="block mb-2 font-medium">Upload Image</label>
                 <div
                     id="uploadContainer"
-                    className="h-30 rounded items-center flex flex-col justify-center border border-white/10 cursor-pointer"
+                    className="h-30 rounded items-center flex flex-col justify-center border border-white/10 cursor-pointer bg-black"
                     onClick={handleFileInputContainerClick}
                 >
                     <FaFileUpload className="h-10" />
