@@ -6,7 +6,9 @@ interface CommunityInput {
     description: string;
 }
 
-const createCommunity = async (community: CommunityInput) => {};
+const createCommunity = async (community: CommunityInput) => {
+    if (community) return null;
+};
 
 export const CreateCommunity = () => {
     const [name, setName] = useState<string>("");

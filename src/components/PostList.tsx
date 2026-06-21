@@ -28,7 +28,7 @@ export const PostList = () => {
     });
 
     if (isLoading) {
-        return <div>Loading posts...</div>;
+        return <div className="w-full items-center">Loading posts...</div>;
     }
 
     if (error) {
