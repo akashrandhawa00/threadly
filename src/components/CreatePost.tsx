@@ -1,7 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
-import { useState, type ChangeEvent } from "react";
+import { useRef, useState, type ChangeEvent } from "react";
 import { supabase } from "../supabase-client";
 import { useAuth } from "../context/AuthContext";
+import { FaFileUpload } from "react-icons/fa";
 
 interface PostInput {
     title: string;
@@ -71,6 +72,12 @@ export const CreatePost = () => {
         }
     };
 
+    const fileInputRef = useRef<HTMLInputElement>(null);
+
+    const handleFileInputContainerClick = () => {
+        fileInputRef.current?.click();
+    };
+
     return (
         <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-4">
             <div>
@@ -92,20 +99,29 @@ export const CreatePost = () => {
                 <textarea
                     id="content"
                     required
-                    rows={5}
+                    rows={6}
                     onChange={(event) => setContent(event.target.value)}
-                    className="w-full border border-white/10 bg-transparent p-2 rounded"
+                    className="w-full border border-white/10 bg-transparent p-2 rounded resize-none"
                 />
             </div>
             <div>
                 <label className="block mb-2 font-medium">Upload Image</label>
+                <div
+                    id="uploadContainer"
+                    className="h-30 rounded items-center flex flex-col justify-center border border-white/10 cursor-pointer"
+                    onClick={handleFileInputContainerClick}
+                >
+                    <FaFileUpload className="h-10" />
+                    <p>Choose file</p>
+                </div>
                 <input
                     type="file"
                     id="image"
                     accept="image/*"
                     required
+                    ref={fileInputRef}
                     onChange={handleFileChange}
-                    className="w-full text-gray-200"
+                    className="w-full text-gray-200 hidden"
                 />
             </div>
 

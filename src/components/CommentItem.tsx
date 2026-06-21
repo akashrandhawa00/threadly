@@ -3,6 +3,8 @@ import type { Comment } from "./CommentSection";
 import { useAuth } from "../context/AuthContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "../supabase-client";
+import {} from "react-icons/ai";
+import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 
 interface Props {
     comment: Comment & { children?: Comment[] };
@@ -34,6 +36,7 @@ const createReply = async (
 export const CommentItem = ({ comment, postId }: Props) => {
     const [showReply, setShowReply] = useState<boolean>(false);
     const [replyText, setReplyText] = useState<string>("");
+    const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
 
     const { user } = useAuth();
     const queryClient = useQueryClient();
@@ -115,6 +118,39 @@ export const CommentItem = ({ comment, postId }: Props) => {
                         </p>
                     )}
                 </form>
+            )}
+
+            {comment.children && comment.children.length > 0 && (
+                <div>
+                    <button onClick={() => setIsCollapsed((prev) => !prev)}>
+                        {isCollapsed ? (
+                            <div className="flex items-center gap-1">
+                                <MdKeyboardArrowDown />
+                                <span className="text-sm text-gray-500">
+                                    Show Replies
+                                </span>{" "}
+                            </div>
+                        ) : (
+                            <div className="flex items-center gap-1">
+                                <MdKeyboardArrowUp />
+                                <span className="text-sm text-gray-500">
+                                    Hide Replies
+                                </span>{" "}
+                            </div>
+                        )}
+                    </button>
+                    {!isCollapsed && (
+                        <div>
+                            {comment.children.map((child, key) => (
+                                <CommentItem
+                                    key={key}
+                                    comment={child}
+                                    postId={postId}
+                                />
+                            ))}
+                        </div>
+                    )}
+                </div>
             )}
         </div>
     );
