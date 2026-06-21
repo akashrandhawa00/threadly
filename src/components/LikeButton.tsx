@@ -106,18 +106,14 @@ export const LikeButton = ({ postId }: Props) => {
         <div className="flex items-center space-x-4 my-4">
             <button
                 onClick={() => mutate(1)}
-                className={`flex items-center gap-2 px-3 py-1 cursor-pointer rounded transition-colors duration-150 ${userVote === 1 ? "bg-green-500 text-white" : "bg-gray-200 text-black"}`}
+                className={`flex items-center gap-2 px-3 py-1 cursor-pointer rounded transition-colors duration-150 ${userVote === 1 ? "bg-green-600 text-white" : "bg-gray-200 text-black"}`}
             >
-                {userVote === 1 ? (
-                    <AiFillLike color="black" />
-                ) : (
-                    <AiOutlineLike />
-                )}
+                {userVote === 1 ? <AiFillLike /> : <AiOutlineLike />}
                 {likes}
             </button>
             <button
                 onClick={() => mutate(-1)}
-                className={`flex items-center gap-2 px-3 py-1 cursor-pointer rounded transition-colors duration-150 ${userVote === -1 ? "bg-red-500 text-white" : "bg-gray-200 text-black"}`}
+                className={`flex items-center gap-2 px-3 py-1 cursor-pointer rounded transition-colors duration-150 ${userVote === -1 ? "bg-red-600 text-white" : "bg-gray-200 text-black"}`}
             >
                 {userVote === -1 ? <AiFillDislike /> : <AiOutlineDislike />}
                 {dislikes}

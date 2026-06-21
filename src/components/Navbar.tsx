@@ -16,7 +16,11 @@ export default function Navbar() {
                         to={"/"}
                         className="font-mono text-xl font-bold text-white"
                     >
-                        Social<span className="text-purple-500">.Network</span>
+                        <span className="text-2xl bg-linear-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">
+                            {" "}
+                            Threadly
+                        </span>
+                        <span className="text-gray-300 text-lg">.app</span>
                     </Link>
 
                     {/* Desktop Navbar */}
