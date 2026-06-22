@@ -1,13 +1,7 @@
 # Threadly
 
 A Reddit-style community discussion platform where users can create posts, join communities, vote, and have threaded conversations — all powered by a real-time Supabase backend.
-<p align="center">
-  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
-  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" />
-  <img src="https://img.shields.io/badge/Supabase-181818?style=for-the-badge&logo=supabase&logoColor=white" />
-  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
-  <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" />
-</p>
+
 
 
 
@@ -20,17 +14,13 @@ A Reddit-style community discussion platform where users can create posts, join 
 
 ---
 
-## Tech Stack
-
-| Layer | Technology |
-|---|---|
-| Frontend | React 18 + Vite |
-| Language | TypeScript |
-| Styling | Tailwind CSS |
-| Backend / DB | Supabase (PostgreSQL) |
-| Auth | Supabase Auth — GitHub OAuth |
-| Server State | TanStack Query (React Query) |
-| Deployment | Vercel |
+<p align="center">
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
+  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" />
+  <img src="https://img.shields.io/badge/Supabase-181818?style=for-the-badge&logo=supabase&logoColor=white" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
+  <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" />
+</p>
 
 ---
 
