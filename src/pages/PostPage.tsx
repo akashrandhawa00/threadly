@@ -5,7 +5,7 @@ export const PostPage = () => {
     const { id } = useParams<{ id: string }>();
 
     return (
-        <div className="pt-10">
+        <div>
             <PostDetail postId={Number(id)} />
         </div>
     );

@@ -9,7 +9,7 @@ import { CommunityPage } from "./pages/CommunityPage";
 
 function App() {
     return (
-        <div className="min-h-screen bg-black text-gray-100 transition-opacity duration-700 pt-20 bg-[radial-gradient(circle,#1e232b_1px,transparent_1px)] bg-size-[25px_25px]">
+        <div className="min-h-screen bg-black text-gray-100 transition-opacity duration-700 pt-20 bg-[radial-gradient(circle,#252c38_1px,transparent_1px)] bg-size-[25px_25px]">
             <Navbar />
             <div className="container mx-auto px-4 py-6 ">
                 <Routes>
