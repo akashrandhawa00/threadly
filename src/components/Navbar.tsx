@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router";
 import { useAuth } from "../context/AuthContext";
+import { PiSignOut } from "react-icons/pi";
 
 export default function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -121,7 +122,7 @@ export default function Navbar() {
 
             {/* mobile menu */}
             {menuOpen && (
-                <div className="md:hidden bg-[rgba(10,10,10,0.9)]">
+                <div className="md:hidden bg-purple-500/10">
                     <div className="px-2 pt-2 pb-3 space-y-1">
                         <Link
                             to={"/"}
@@ -143,10 +144,44 @@ export default function Navbar() {
                         </Link>
                         <Link
                             to={"/community/create"}
-                            className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800"
+                            className=" block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800"
                         >
                             Create Community
                         </Link>
+                        <div className=" items-center rounded-md px-3 py-2 block font-medium ">
+                            {user ? (
+                                <div className="flex items-center justify-between ">
+                                    <div className="flex gap-4 items-center">
+                                        {user.user_metadata.avatar_url && (
+                                            <img
+                                                src={
+                                                    user.user_metadata
+                                                        .avatar_url
+                                                }
+                                                alt="User Profile Picture"
+                                                className="w-8 h-8 rounded-full object-cover"
+                                            />
+                                        )}
+                                        <span className="text-gray-300">
+                                            {displayName}
+                                        </span>
+                                    </div>
+                                    <button
+                                        onClick={signOut}
+                                        className="px-3 py-1 rounded"
+                                    >
+                                        <PiSignOut size={24} />
+                                    </button>
+                                </div>
+                            ) : (
+                                <button
+                                    onClick={signInWithGitHub}
+                                    className="bg-blue-500 px-3 py-1 rounded"
+                                >
+                                    Sign In With GitHub
+                                </button>
+                            )}
+                        </div>
                     </div>
                 </div>
             )}

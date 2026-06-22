@@ -1,13 +1,15 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRef, useState, type ChangeEvent } from "react";
 import { supabase } from "../supabase-client";
 import { useAuth } from "../context/AuthContext";
-import { FaFileUpload } from "react-icons/fa";
+import { FaFileUpload, FaPaperclip } from "react-icons/fa";
+import { fetchCommunities, type Community } from "./CommunityList";
 
 interface PostInput {
     title: string;
     content: string;
     avatar_url: string | null;
+    community_id?: number | null;
 }
 
 const createPost = async (post: PostInput, imageFile: File) => {
@@ -41,8 +43,14 @@ export const CreatePost = () => {
     const [title, setTitle] = useState<string>("");
     const [content, setContent] = useState<string>("");
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [communityId, setCommunityId] = useState<number | null>(null);
 
     const { user } = useAuth();
+
+    const { data: communities } = useQuery<Community[], Error>({
+        queryKey: ["communities"],
+        queryFn: fetchCommunities,
+    });
 
     const { mutate, isPending, isError } = useMutation({
         mutationFn: (data: { post: PostInput; imageFile: File }) => {
@@ -61,9 +69,17 @@ export const CreatePost = () => {
                 title,
                 content,
                 avatar_url: user?.user_metadata.avatar_url || null,
+                community_id: communityId,
             },
             imageFile: selectedFile,
         });
+    };
+
+    // ------------------ handle file change functions ------------------
+
+    const handleCommunityChange = (event: ChangeEvent<HTMLSelectElement>) => {
+        const value = event.target.value;
+        setCommunityId(value ? Number(value) : null);
     };
 
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -104,15 +120,36 @@ export const CreatePost = () => {
                     className="w-full border border-white/10 bg-black  p-2 rounded resize-none"
                 />
             </div>
+
+            <div>
+                <label>Select Community</label>
+                <select id="community" onChange={handleCommunityChange}>
+                    <option value={""}> -- Choose a Community -- </option>
+                    {communities?.map((community, key) => (
+                        <option key={key} value={community.id}>
+                            {community.name}
+                        </option>
+                    ))}
+                </select>
+            </div>
             <div>
                 <label className="block mb-2 font-medium">Upload Image</label>
                 <div
                     id="uploadContainer"
-                    className="h-30 rounded items-center flex flex-col justify-center border border-white/10 cursor-pointer bg-black"
                     onClick={handleFileInputContainerClick}
+                    className={`h-30 rounded items-center flex flex-col justify-center border  cursor-pointer bg-black hover:-translate-y-1 transform duration-300 ${selectedFile ? "border-purple-500/50" : "border-white/10"}`}
                 >
-                    <FaFileUpload className="h-10" />
-                    <p>Choose file</p>
+                    {selectedFile ? (
+                        <>
+                            <FaPaperclip size={26} />
+                            <p className="mt-2">{selectedFile.name}</p>
+                        </>
+                    ) : (
+                        <>
+                            <FaFileUpload size={26} />
+                            <p className="mt-2">Choose image</p>
+                        </>
+                    )}
                 </div>
                 <input
                     type="file"

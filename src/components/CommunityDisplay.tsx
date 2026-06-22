@@ -1,0 +1,76 @@
+import { useQuery } from "@tanstack/react-query";
+import type { Post } from "./PostList";
+import { supabase } from "../supabase-client";
+import { PostItem } from "./PostItem";
+import { Link } from "react-router";
+
+interface Props {
+    communityId: number;
+}
+
+interface PostWithCommunity extends Post {
+    communities: {
+        name: string;
+    };
+}
+
+export const fetchCommunityPost = async (
+    communityId: number,
+): Promise<PostWithCommunity[]> => {
+    const { data, error } = await supabase
+        .from("posts")
+        .select("*, communities(name)")
+        .eq("community_id", communityId)
+        .order("created_at", { ascending: false });
+
+    if (error) throw new Error(error.message);
+    return data as PostWithCommunity[];
+};
+
+export const CommunityDisplay = ({ communityId }: Props) => {
+    const { data, error, isLoading } = useQuery<PostWithCommunity[], Error>({
+        queryKey: ["communityPost", communityId],
+        queryFn: () => fetchCommunityPost(communityId),
+    });
+
+    if (isLoading) {
+        return <div className="text-center py-4">Loading communities...</div>;
+    }
+
+    if (error) {
+        return (
+            <div className="text-center text-red-500 py-4">
+                {" "}
+                Error: {error.message}
+            </div>
+        );
+    }
+
+    return (
+        <div>
+            <h2 className="text-6xl font-bold mb-6 text-center bg-linear-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
+                {data && data.length > 0 && data[0].communities.name} Community
+                Posts
+            </h2>
+            {data && data.length > 0 ? (
+                <div className="flex flex-wrap gap-6 justify-center">
+                    {data.map((post, key) => (
+                        <PostItem key={key} post={post} />
+                    ))}
+                </div>
+            ) : (
+                <div className="flex flex-col items-center gap-4">
+                    <p className="text-center text-gray-400">
+                        No posts in this community yet.
+                    </p>
+                    <Link
+                        to="/create"
+                        className="bg-purple-500 text-white px-4 py-2 rounded cursor-pointer hover:bg-pink-500 transition-all duration-300 hover:scale-105"
+                    >
+                        Create Post
+                    </Link>
+                </div>
+            )}
+        </div>
+    );
+};
