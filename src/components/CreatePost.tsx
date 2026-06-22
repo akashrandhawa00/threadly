@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRef, useState, type ChangeEvent } from "react";
 import { supabase } from "../supabase-client";
 import { useAuth } from "../context/AuthContext";
@@ -56,6 +56,12 @@ export const CreatePost = () => {
         mutationFn: (data: { post: PostInput; imageFile: File }) => {
             return createPost(data.post, data.imageFile);
         },
+
+        onSuccess: () => {
+            setTitle("");
+            setContent("");
+            setSelectedFile(null);
+        },
     });
 
     const handleSubmit = (event: React.FormEvent) => {
@@ -103,6 +109,7 @@ export const CreatePost = () => {
                 <input
                     type="text"
                     id="title"
+                    value={title}
                     required
                     onChange={(event) => setTitle(event.target.value)}
                     className="w-full border border-white/10 bg-black  p-2 rounded"
@@ -114,6 +121,7 @@ export const CreatePost = () => {
                 </label>
                 <textarea
                     id="content"
+                    value={content}
                     required
                     rows={6}
                     onChange={(event) => setContent(event.target.value)}

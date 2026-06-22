@@ -69,15 +69,18 @@ export default function Navbar() {
                                 </span>
                                 <button
                                     onClick={signOut}
-                                    className="px-3 py-1 rounded"
+                                    className="px-3 py-1 rounded cursor-pointer group"
                                 >
-                                    <PiSignOut size={24} />
+                                    <PiSignOut
+                                        size={24}
+                                        className="text-gray-300 group-hover:scale-110 group-hover:text-white transition-transform duration-200"
+                                    />
                                 </button>
                             </div>
                         ) : (
                             <button
                                 onClick={signInWithGitHub}
-                                className="bg-black px-4 py-2 rounded flex items-center gap-4 hover:cursor-pointer border border-white/20"
+                                className="bg-black px-4 py-2 rounded flex items-center gap-4 hover:cursor-pointer border border-white/20 hover:border-white transition-all duration-300"
                             >
                                 <FaGithub size={22} />
                                 Sign in with Github
@@ -178,7 +181,7 @@ export default function Navbar() {
                             ) : (
                                 <button
                                     onClick={signInWithGitHub}
-                                    className="bg-black px-4 py-2 rounded flex items-center gap-4 hover:cursor-pointer border border-white/20"
+                                    className="bg-black px-4 py-2 rounded flex items-center gap-4 hover:cursor-pointer border border-white/20 "
                                 >
                                     <FaGithub size={22} />
                                     Sign in with Github
