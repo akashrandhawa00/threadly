@@ -1,5 +1,7 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
+import { useNavigate } from "react-router";
+import { supabase } from "../supabase-client";
 
 interface CommunityInput {
     name: string;
@@ -7,17 +9,25 @@ interface CommunityInput {
 }
 
 const createCommunity = async (community: CommunityInput) => {
-    if (community) return null;
+    const { data, error } = await supabase
+        .from("communities")
+        .insert(community);
+
+    if (error) throw new Error(error.message);
+    return data;
 };
 
 export const CreateCommunity = () => {
     const [name, setName] = useState<string>("");
     const [description, setDescription] = useState<string>("");
+    const navigate = useNavigate();
+    const queryClient = useQueryClient();
 
     const { mutate, isPending, isError } = useMutation({
         mutationFn: createCommunity,
         onSuccess: () => {
-            // queryClient.invalidateQueries({queryKey: ["comments", postId],
+            queryClient.invalidateQueries({ queryKey: ["communities"] });
+            navigate("/communities");
         },
     });
 
@@ -40,7 +50,7 @@ export const CreateCommunity = () => {
                     id="name"
                     required
                     onChange={(e) => setName(e.target.value)}
-                    className="border w-full bg-black p-2 rounded border-white/20"
+                    className="border w-full bg-red p-2 rounded border-white/20"
                 />
             </div>
             <div>
@@ -48,7 +58,7 @@ export const CreateCommunity = () => {
                     Community Description
                 </label>
                 <textarea
-                    rows={3}
+                    rows={6}
                     id="description"
                     required
                     onChange={(e) => setDescription(e.target.value)}
