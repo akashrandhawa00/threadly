@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRef, useState, type ChangeEvent } from "react";
 import { supabase } from "../supabase-client";
 import { useAuth } from "../context/AuthContext";
