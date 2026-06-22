@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router";
 import { useAuth } from "../context/AuthContext";
 import { PiSignOut } from "react-icons/pi";
+import { FaGithub } from "react-icons/fa";
 
 export default function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -176,9 +177,10 @@ export default function Navbar() {
                             ) : (
                                 <button
                                     onClick={signInWithGitHub}
-                                    className="bg-blue-500 px-3 py-1 rounded"
+                                    className="bg-black px-4 py-2 rounded flex items-center gap-4 hover:cursor-pointer border border-white/20"
                                 >
-                                    Sign In With GitHub
+                                    <FaGithub />
+                                    Sign in with Github
                                 </button>
                             )}
                         </div>
